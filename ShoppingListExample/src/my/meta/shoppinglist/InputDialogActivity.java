@@ -32,7 +32,7 @@ public class InputDialogActivity extends Activity {
 		        Intent resultIntent = new Intent();
 		        resultIntent.putExtra("value", et.getText().toString());
 		        resultIntent.putExtra("actual_requestCode", getIntent().getExtras().getString("actual_requestCode"));
-		        resultIntent.putExtra("original_position", getIntent().getExtras().getInt("item_position"));
+		        resultIntent.putExtra("item_position", getIntent().getExtras().getInt("item_position"));
 		        setResult(Activity.RESULT_OK, resultIntent);
 		        finish();
 			}

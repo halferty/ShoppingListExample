@@ -1,3 +1,5 @@
+// Used for adding items and editing existing items.
+
 package my.meta.shoppinglist;
 
 import my.meta.shoppinglist.R;
@@ -18,7 +20,7 @@ public class InputDialogActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-		setContentView(R.layout.input_dialog);
+		setContentView(R.layout.new_item_dialog);
 
 		this.setTitle(getIntent().getExtras().getString("title"));
 		

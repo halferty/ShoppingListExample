@@ -9,7 +9,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
@@ -76,33 +78,39 @@ public class ShoppingListExampleActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
         case R.id.new_item:
-        	Intent t = new Intent("my.meta.shoppinglist.inputDialog");
-        	t.putExtra("title", "Add");
-        	this.startActivityForResult(t, LIST_ADD);
+        	Intent newItemIntent = new Intent("my.meta.shoppingList.inputDialog");
+        	newItemIntent.putExtra("title", "Add");
+        	this.startActivityForResult(newItemIntent, LIST_ADD);
+        	break;
+        case R.id.email:
+        	SendEmail();
         	break;
 	    }
 	    return true;
 	}    
-	
+
 	// Menu event handler
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	String value = data.getStringExtra("value");
-    	if (value != null && value.length() > 0) {
-    		switch (requestCode) {
-            	case LIST_EDIT:
-            		int num = data.getIntExtra("item_position", 0);
-            		ModifyItem(num, value);
-            		break;
-            	case LIST_ADD:
-            		AddItem(value);
-            		break;
-            	default:
-            		break;
-        	}
-    	}
-    }
-    
-    // List item modifiers
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case LIST_EDIT:
+			String edited_text = data.getStringExtra("value");
+			if (edited_text != null && edited_text.length() > 0) {
+				int num = data.getIntExtra("item_position", 0);
+				ModifyItem(num, edited_text);
+			}
+			break;
+		case LIST_ADD:
+			String added_text = data.getStringExtra("value");
+			if (added_text != null && added_text.length() > 0) {
+				AddItem(added_text);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	// List item modifiers
     private void AddItem(String item) {
     	itemList.add(item);
 		adapter.notifyDataSetChanged();
@@ -158,5 +166,21 @@ public class ShoppingListExampleActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+    
+	// Starts a new email pre-filled with the shopping list.
+    private void SendEmail() {
+    	Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+
+    	emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Saved shopping list");
+    	
+    	emailIntent.setType("plain/text");
+    	String emailMessage = "Saved shopping list:" + System.getProperty("line.separator") + System.getProperty("line.separator");
+    	for(String item : itemList) {
+    		emailMessage += item + System.getProperty("line.separator");
+    	}
+    	emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, emailMessage);
+    	
+    	startActivity(emailIntent);
 	}
 }

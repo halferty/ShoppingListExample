@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".InputDialogActivity" >
             <intent-filter>
-                <action android:name="my.meta.shoppinglist.inputDialog" />
+                <action android:name="my.meta.shoppingList.inputDialog" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

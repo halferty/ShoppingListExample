@@ -41,6 +41,7 @@ public class InputDialogActivity extends Activity {
 	}
 	
 	public void onBackPressed() {
+		setResult(Activity.RESULT_CANCELED, new Intent());
 		finish();
         super.onBackPressed();
     }

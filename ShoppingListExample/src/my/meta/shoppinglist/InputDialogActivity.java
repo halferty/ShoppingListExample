@@ -25,7 +25,10 @@ public class InputDialogActivity extends Activity {
 		this.setTitle(getIntent().getExtras().getString("title"));
 		
 		et = (EditText) findViewById(R.id.editText1);
-		et.setText(getIntent().getExtras().getString("value"));
+		String value = getIntent().getExtras().getString("value");
+		if(value != null && value.length() > 0) {
+			et.setText(value);
+		}
 		
 		okButton = (Button) findViewById(R.id.button1);
 		okButton.setOnClickListener(new View.OnClickListener() {

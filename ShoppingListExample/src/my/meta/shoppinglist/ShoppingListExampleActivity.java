@@ -9,9 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,7 +56,7 @@ public class ShoppingListExampleActivity extends Activity {
         	RemoveItem(info.position);
             return true;
         case R.id.edit_item:
-        	Intent t = new Intent("my.meta.shoppinglist.inputDialog");
+        	Intent t = new Intent("my.meta.shoppingList.inputDialog");
         	t.putExtra("title", "Edit");
         	t.putExtra("value", itemList.get(info.position));
         	t.putExtra("item_position", info.position);
